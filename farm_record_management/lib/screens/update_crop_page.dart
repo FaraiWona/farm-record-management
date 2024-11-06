@@ -33,3 +33,27 @@ class UpdateCropPage extends StatelessWidget {
         TextEditingController(text: quantity);
     final TextEditingController notesController =
         TextEditingController(text: notes);
+
+ return Scaffold(
+      appBar: AppBar(
+        title: const Text('Update Crop'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Crop Name',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the crop name';
+                  }
+                  return null;
+                },
+              ),
