@@ -110,3 +110,13 @@ class UpdateCropPage extends StatelessWidget {
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
+               ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    final updatedCrop = {
+                      'name': nameController.text,
+                      'plantingDate': plantingDateController.text,
+                      'harvestDate': harvestDateController.text,
+                      'quantity': quantityController.text,
+                      'notes': notesController.text,
+                    };
