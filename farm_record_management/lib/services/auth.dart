@@ -44,4 +44,14 @@ class AuthService {
       logger.e('Error during sign-out: $e');
     }
   }
+
+  Future<User?> signInAnon() async {
+    try {
+      UserCredential userCredential = await _auth.signInAnonymously();
+      return userCredential.user;
+    } catch (e) {
+      logger.e('Error during anonymous sign-in: $e');
+      return null;
+    }
+  }
 }
