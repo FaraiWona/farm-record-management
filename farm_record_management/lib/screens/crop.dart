@@ -4,3 +4,6 @@ import 'update_crop_page.dart';
 import 'home_page.dart';
 import 'animal_home_page.dart';
 import 'update_animals_page.dart';
+
+class CropListPage extends StatelessWidget {
+  const CropListPage({super.key});
