@@ -47,3 +47,13 @@ class CropListPage extends StatelessWidget {
                 ),
               ),
             ),
+            ListTile(
+              title: const Text('Manage Crops'),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              },
+            ),
