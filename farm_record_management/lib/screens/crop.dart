@@ -71,3 +71,17 @@ class CropListPage extends StatelessWidget {
           ],
         ),
       ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0), 
+          child: Column(
+            children: [
+              _buildCropsSection(),
+              const SizedBox(height: 20), 
+              _buildAnimalsSection(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
