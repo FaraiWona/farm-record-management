@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "575843924317",
+    "project_id": "farm-ca350",
+    "storage_bucket": "farm-ca350.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575843924317:android:c116c7b470ce368b7d50b4",
+        "android_client_info": {
+          "package_name": "com.example.farm_record_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWE9PHKzd17dCEZegBmqXIPadA2JGLExc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
