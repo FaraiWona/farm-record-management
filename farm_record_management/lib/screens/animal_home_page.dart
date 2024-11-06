@@ -62,4 +62,15 @@ class AnimalHomePage extends StatelessWidget {
 
 class AnimalDetailsForm extends StatefulWidget {
   const AnimalDetailsForm({super.key});
+
+ @override
+  _AnimalDetailsFormState createState() => _AnimalDetailsFormState();
 }
+
+class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _birthDateController = TextEditingController();
+  final TextEditingController _breedController = TextEditingController();
+  final TextEditingController _healthStatusController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
+  final TextEditingController _speciesController = TextEditingController();
