@@ -57,3 +57,17 @@ class CropListPage extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+              title: const Text('Manage Animals'),
+              onTap: () {
+                Navigator.pop(context); 
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AnimalHomePage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
