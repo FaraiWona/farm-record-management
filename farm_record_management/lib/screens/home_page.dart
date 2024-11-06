@@ -34,3 +34,54 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+class CropDetailsForm extends StatefulWidget {
+  const CropDetailsForm({super.key});
+
+  @override
+  _CropDetailsFormState createState() => _CropDetailsFormState();
+}
+
+class _CropDetailsFormState extends State<CropDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _plantingDateController = TextEditingController();
+  final TextEditingController _harvestDateController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
+
+  final CollectionReference _cropsCollection =
+      FirebaseFirestore.instance.collection('crops');
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          _buildTextFormField(_nameController, 'Crop Name', false),
+          const SizedBox(height: 16),
+          _buildTextFormField(
+              _plantingDateController, 'Planting Date (YYYY-MM-DD)', false),
+          const SizedBox(height: 16),
+          _buildTextFormField(
+              _harvestDateController, 'Harvest Date (YYYY-MM-DD)', false),
+          const SizedBox(height: 16),
+          _buildTextFormField(_quantityController, 'Quantity', true),
+          const SizedBox(height: 16),
+          _buildTextFormField(_notesController, 'Notes', false, maxLines: 3),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _submitForm,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green, // Background color
+              foregroundColor: Colors.white, // Text color
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12), // Button padding
+            ),
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
