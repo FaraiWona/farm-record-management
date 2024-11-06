@@ -160,4 +160,11 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
                   'healthStatus': _healthStatusController.text,
                   'species': _speciesController.text,
                   'notes': _notesController.text,
-                };     
+                };
+
+
+                _animalsCollection.add(animalDetails).then((value) {
+                  print("Animal Added");
+                  
+                  _formKey.currentState!.reset();
+     
