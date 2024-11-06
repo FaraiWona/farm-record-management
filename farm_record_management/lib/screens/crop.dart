@@ -197,3 +197,12 @@ class CropListPage extends StatelessWidget {
         }
 
         final animals = snapshot.data!.docs;
+
+         if (animals.isEmpty) {
+          return const Center(
+            child: Text(
+              'No animals available. Add some to get started!',
+              style: TextStyle(fontSize: 18, color: Colors.black54),
+            ),
+          );
+        }
