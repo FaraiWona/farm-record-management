@@ -9,3 +9,12 @@ class UpdateAnimalPage extends StatelessWidget {
   final String species;
   final String notes;
 
+const UpdateAnimalPage({
+    super.key,
+    required this.animalId,
+    required this.birthDate,
+    required this.breed,
+    required this.healthStatus,
+    required this.species,
+    required this.notes,
+  });
