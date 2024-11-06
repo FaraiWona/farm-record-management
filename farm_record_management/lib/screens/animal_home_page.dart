@@ -78,3 +78,23 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
  
   final CollectionReference _animalsCollection =
       FirebaseFirestore.instance.collection('animals');
+
+ @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _birthDateController,
+            decoration: const InputDecoration(
+              labelText: 'Birth Date (YYYY-MM-DD)',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the birth date';
+              }
+              return null;
+            },
+          ),      
