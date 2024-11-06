@@ -74,10 +74,9 @@ class _CropDetailsFormState extends State<CropDetailsForm> {
           ElevatedButton(
             onPressed: _submitForm,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, // Background color
-              foregroundColor: Colors.white, // Text color
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12), // Button padding
+              backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 12),
             ),
             child: const Text('Submit'),
           ),
@@ -85,3 +84,61 @@ class _CropDetailsFormState extends State<CropDetailsForm> {
       ),
     );
   }
+
+  TextFormField _buildTextFormField(
+      TextEditingController controller, String label, bool isNumeric,
+      {int maxLines = 1}) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
+      maxLines: maxLines,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the $label';
+        }
+        return null;
+      },
+    );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final cropDetails = {
+        'name': _nameController.text,
+        'plantingDate': _plantingDateController.text,
+        'harvestDate': _harvestDateController.text,
+        'quantity': _quantityController.text,
+        'notes': _notesController.text,
+      };
+
+      _cropsCollection.add(cropDetails).then((value) {
+        _formKey.currentState!.reset();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Crop added successfully!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const CropListPage()),
+        );
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add crop: $error')),
+        );
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _plantingDateController.dispose();
+    _harvestDateController.dispose();
+    _quantityController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+}
