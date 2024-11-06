@@ -74,3 +74,7 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
   final TextEditingController _healthStatusController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
   final TextEditingController _speciesController = TextEditingController();
+
+ 
+  final CollectionReference _animalsCollection =
+      FirebaseFirestore.instance.collection('animals');
