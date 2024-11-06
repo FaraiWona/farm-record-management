@@ -19,3 +19,17 @@ class UpdateCropPage extends StatelessWidget {
     required this.quantity,
     required this.notes,
   });
+
+ @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController nameController =
+        TextEditingController(text: cropName);
+    final TextEditingController plantingDateController =
+        TextEditingController(text: plantingDate);
+    final TextEditingController harvestDateController =
+        TextEditingController(text: harvestDate);
+    final TextEditingController quantityController =
+        TextEditingController(text: quantity);
+    final TextEditingController notesController =
+        TextEditingController(text: notes);
