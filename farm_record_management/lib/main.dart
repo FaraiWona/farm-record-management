@@ -23,3 +23,13 @@ void main() async {
         measurementId: "your-measurement-id",
       ),
     );
+
+     FirebaseFirestore.instance.settings =
+        const Settings(persistenceEnabled: true);
+
+    logger.i(
+        'Firebase initialized successfully with offline persistence enabled');
+  } catch (e) {
+    logger.e('Error during Firebase initialization: $e');
+  }
+
