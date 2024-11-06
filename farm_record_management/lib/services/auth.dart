@@ -20,4 +20,28 @@ class AuthService {
       return null;
     }
   }
+
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential.user;
+    } catch (e) {
+      logger.e('Error during sign-up: $e');
+      return null;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+      logger.i('User signed out successfully');
+    } catch (e) {
+      logger.e('Error during sign-out: $e');
+    }
+  }
 }
