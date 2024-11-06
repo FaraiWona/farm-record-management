@@ -24,7 +24,7 @@ void main() async {
       ),
     );
 
-     FirebaseFirestore.instance.settings =
+    FirebaseFirestore.instance.settings =
         const Settings(persistenceEnabled: true);
 
     logger.i(
@@ -33,3 +33,26 @@ void main() async {
     logger.e('Error during Firebase initialization: $e');
   }
 
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Farm Management',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LoginPage(),
+        '/signup': (context) => const SignInPage(),
+        '/crops': (context) => const CropListPage(),
+        '/home': (context) => const HomePage(),
+      },
+    );
+  }
+}
