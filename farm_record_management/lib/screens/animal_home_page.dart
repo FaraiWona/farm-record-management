@@ -149,4 +149,15 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
             ),
             maxLines: 3,
           ),
-          const SizedBox(height: 20),      
+          const SizedBox(height: 20), 
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                
+                final animalDetails = {
+                  'birthDate': _birthDateController.text,
+                  'breed': _breedController.text,
+                  'healthStatus': _healthStatusController.text,
+                  'species': _speciesController.text,
+                  'notes': _notesController.text,
+                };     
