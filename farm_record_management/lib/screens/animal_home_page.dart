@@ -97,4 +97,56 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
               }
               return null;
             },
-          ),      
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _breedController,
+            decoration: const InputDecoration(
+              labelText: 'Breed',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the breed';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _healthStatusController,
+            decoration: const InputDecoration(
+              labelText: 'Health Status',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the health status';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _speciesController,
+            decoration: const InputDecoration(
+              labelText: 'Species',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the species';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _notesController,
+            decoration: const InputDecoration(
+              labelText: 'Notes',
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 3,
+          ),
+          const SizedBox(height: 20),      
