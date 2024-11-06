@@ -85,3 +85,25 @@ class CropListPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildCropsSection() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('crops').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+
+        final crops = snapshot.data!.docs;
+
+        if (crops.isEmpty) {
+          return const Center(
+            child: Text(
+              'No crops available. Add some to get started!',
+              style: TextStyle(fontSize: 18, color: Colors.black54),
+            ),
+          );
+        }
