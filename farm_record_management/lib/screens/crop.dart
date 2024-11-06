@@ -206,3 +206,49 @@ class CropListPage extends StatelessWidget {
             ),
           );
         }
+
+        return ExpansionTile(
+          title: const Text('Animals', style: TextStyle(fontSize: 20)),
+          children: animals.map((animal) {
+            final animalData = animal.data() as Map<String, dynamic>;
+            final animalId = animal.id;
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Species: ${animalData['species']}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('Breed: ${animalData['breed']}'),
+                    Text('Birth Date: ${animalData['birthDate']}'),
+                    Text('Health Status: ${animalData['healthStatus']}'),
+                    Text('Notes: ${animalData['notes'] ?? 'No notes'}'),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            FirebaseFirestore.instance
+                                .collection('animals')
+                                .doc(animalId)
+                                .delete()
+                                .then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'Animal deleted successfully!')));
+                            }).catchError((error) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to delete animal: $error')));
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red),
+                          child: const Text('Delete'),
+                        ),
