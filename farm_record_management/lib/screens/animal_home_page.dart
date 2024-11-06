@@ -63,7 +63,7 @@ class AnimalHomePage extends StatelessWidget {
 class AnimalDetailsForm extends StatefulWidget {
   const AnimalDetailsForm({super.key});
 
- @override
+  @override
   _AnimalDetailsFormState createState() => _AnimalDetailsFormState();
 }
 
@@ -75,11 +75,10 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
   final TextEditingController _notesController = TextEditingController();
   final TextEditingController _speciesController = TextEditingController();
 
- 
   final CollectionReference _animalsCollection =
       FirebaseFirestore.instance.collection('animals');
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -149,11 +148,10 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
             ),
             maxLines: 3,
           ),
-          const SizedBox(height: 20), 
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                
                 final animalDetails = {
                   'birthDate': _birthDateController.text,
                   'breed': _breedController.text,
@@ -162,9 +160,36 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
                   'notes': _notesController.text,
                 };
 
-
                 _animalsCollection.add(animalDetails).then((value) {
                   print("Animal Added");
-                  
+
                   _formKey.currentState!.reset();
-     
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Animal added successfully!')),
+                  );
+                }).catchError((error) {
+                  print("Failed to add animal: $error");
+                });
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+            ),
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _birthDateController.dispose();
+    _breedController.dispose();
+    _healthStatusController.dispose();
+    _speciesController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+}
