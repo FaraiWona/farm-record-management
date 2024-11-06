@@ -117,3 +117,33 @@ return Scaffold(
                       'species': speciesController.text,
                       'notes': notesController.text,
                     };
+
+                     
+                    FirebaseFirestore.instance
+                        .collection('animals')
+                        .doc(animalId)
+                        .update(updatedAnimal)
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Animal updated successfully!')),
+                      );
+                      Navigator.pop(context); 
+                    }).catchError((error) {
+                      print("Failed to update animal: $error");
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
+                child: const Text('Update'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
