@@ -18,3 +18,16 @@ const UpdateAnimalPage({
     required this.species,
     required this.notes,
   });
+ @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController birthDateController =
+        TextEditingController(text: birthDate);
+    final TextEditingController breedController =
+        TextEditingController(text: breed);
+    final TextEditingController healthStatusController =
+        TextEditingController(text: healthStatus);
+    final TextEditingController speciesController =
+        TextEditingController(text: species);
+    final TextEditingController notesController =
+        TextEditingController(text: notes);
