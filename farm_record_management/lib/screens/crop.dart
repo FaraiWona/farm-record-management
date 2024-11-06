@@ -149,3 +149,38 @@ class CropListPage extends StatelessWidget {
                                           'Failed to delete crop: $error')));
                             });
                           },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.red),
+                          child: const Text('Delete'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateCropPage(
+                                  cropId: cropId,
+                                  cropName: cropData['name'],
+                                  plantingDate: cropData['plantingDate'],
+                                  harvestDate: cropData['harvestDate'],
+                                  quantity: cropData['quantity'],
+                                  notes: cropData['notes'] ?? '',
+                                ),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue),
+                          child: const Text('Update'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
