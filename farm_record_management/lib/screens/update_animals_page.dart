@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UpdateAnimalPage extends StatelessWidget {
-   final String animalId;
+  final String animalId;
   final String birthDate;
   final String breed;
   final String healthStatus;
   final String species;
   final String notes;
 
-const UpdateAnimalPage({
+  const UpdateAnimalPage({
     super.key,
     required this.animalId,
     required this.birthDate,
@@ -18,7 +18,7 @@ const UpdateAnimalPage({
     required this.species,
     required this.notes,
   });
- @override
+  @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController birthDateController =
@@ -32,7 +32,7 @@ const UpdateAnimalPage({
     final TextEditingController notesController =
         TextEditingController(text: notes);
 
-return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Update Animal'),
       ),
@@ -118,7 +118,6 @@ return Scaffold(
                       'notes': notesController.text,
                     };
 
-                     
                     FirebaseFirestore.instance
                         .collection('animals')
                         .doc(animalId)
@@ -128,7 +127,7 @@ return Scaffold(
                         const SnackBar(
                             content: Text('Animal updated successfully!')),
                       );
-                      Navigator.pop(context); 
+                      Navigator.pop(context);
                     }).catchError((error) {
                       print("Failed to update animal: $error");
                     });
@@ -146,4 +145,3 @@ return Scaffold(
     );
   }
 }
-

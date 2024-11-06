@@ -8,3 +8,14 @@ class UpdateCropPage extends StatelessWidget {
   final String harvestDate;
   final String quantity;
   final String notes;
+
+
+  const UpdateCropPage({
+    super.key,
+    required this.cropId,
+    required this.cropName,
+    required this.plantingDate,
+    required this.harvestDate,
+    required this.quantity,
+    required this.notes,
+  });
