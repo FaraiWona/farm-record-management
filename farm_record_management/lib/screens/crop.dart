@@ -107,3 +107,45 @@ class CropListPage extends StatelessWidget {
             ),
           );
         }
+
+         return ExpansionTile(
+          title: const Text('Crops', style: TextStyle(fontSize: 20)),
+          children: crops.map((crop) {
+            final cropData = crop.data() as Map<String, dynamic>;
+            final cropId = crop.id;
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Crop Name: ${cropData['name']}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('Planting Date: ${cropData['plantingDate']}'),
+                    Text('Harvest Date: ${cropData['harvestDate']}'),
+                    Text('Quantity: ${cropData['quantity']}'),
+                    Text('Notes: ${cropData['notes'] ?? 'No notes'}'),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            FirebaseFirestore.instance
+                                .collection('crops')
+                                .doc(cropId)
+                                .delete()
+                                .then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('Crop deleted successfully!')));
+                            }).catchError((error) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          'Failed to delete crop: $error')));
+                            });
+                          },
