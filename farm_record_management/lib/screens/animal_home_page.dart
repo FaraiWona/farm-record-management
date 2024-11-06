@@ -59,3 +59,7 @@ class AnimalHomePage extends StatelessWidget {
     );
   }
 }
+
+class AnimalDetailsForm extends StatefulWidget {
+  const AnimalDetailsForm({super.key});
+}
