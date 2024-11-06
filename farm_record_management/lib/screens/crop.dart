@@ -8,7 +8,7 @@ import 'update_animals_page.dart';
 class CropListPage extends StatelessWidget {
   const CropListPage({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +50,7 @@ class CropListPage extends StatelessWidget {
             ListTile(
               title: const Text('Manage Crops'),
               onTap: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
@@ -60,7 +60,7 @@ class CropListPage extends StatelessWidget {
             ListTile(
               title: const Text('Manage Animals'),
               onTap: () {
-                Navigator.pop(context); 
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -73,11 +73,11 @@ class CropListPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 16.0), 
+          padding: const EdgeInsets.only(top: 16.0),
           child: Column(
             children: [
               _buildCropsSection(),
-              const SizedBox(height: 20), 
+              const SizedBox(height: 20),
               _buildAnimalsSection(),
             ],
           ),
@@ -108,7 +108,7 @@ class CropListPage extends StatelessWidget {
           );
         }
 
-         return ExpansionTile(
+        return ExpansionTile(
           title: const Text('Crops', style: TextStyle(fontSize: 20)),
           children: crops.map((crop) {
             final cropData = crop.data() as Map<String, dynamic>;
@@ -185,7 +185,7 @@ class CropListPage extends StatelessWidget {
     );
   }
 
- Widget _buildAnimalsSection() {
+  Widget _buildAnimalsSection() {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('animals').snapshots(),
       builder: (context, snapshot) {
@@ -198,7 +198,7 @@ class CropListPage extends StatelessWidget {
 
         final animals = snapshot.data!.docs;
 
-         if (animals.isEmpty) {
+        if (animals.isEmpty) {
           return const Center(
             child: Text(
               'No animals available. Add some to get started!',
@@ -252,3 +252,35 @@ class CropListPage extends StatelessWidget {
                               backgroundColor: Colors.red),
                           child: const Text('Delete'),
                         ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateAnimalPage(
+                                  animalId: animalId,
+                                  birthDate: animalData['birthDate'],
+                                  breed: animalData['breed'],
+                                  healthStatus: animalData['healthStatus'],
+                                  species: animalData['species'],
+                                  notes: animalData['notes'] ?? '',
+                                ),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue),
+                          child: const Text('Update'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
+}
