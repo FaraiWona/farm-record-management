@@ -9,7 +9,6 @@ class UpdateCropPage extends StatelessWidget {
   final String quantity;
   final String notes;
 
-
   const UpdateCropPage({
     super.key,
     required this.cropId,
@@ -20,7 +19,7 @@ class UpdateCropPage extends StatelessWidget {
     required this.notes,
   });
 
- @override
+  @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController nameController =
@@ -34,7 +33,7 @@ class UpdateCropPage extends StatelessWidget {
     final TextEditingController notesController =
         TextEditingController(text: notes);
 
- return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Update Crop'),
       ),
@@ -110,7 +109,7 @@ class UpdateCropPage extends StatelessWidget {
                 maxLines: 3,
               ),
               const SizedBox(height: 20),
-               ElevatedButton(
+              ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     final updatedCrop = {
@@ -120,3 +119,31 @@ class UpdateCropPage extends StatelessWidget {
                       'quantity': quantityController.text,
                       'notes': notesController.text,
                     };
+
+                    FirebaseFirestore.instance
+                        .collection('crops')
+                        .doc(cropId)
+                        .update(updatedCrop)
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Crop updated successfully!')),
+                      );
+                      Navigator.pop(context);
+                    }).catchError((error) {
+                      print("Failed to update crop: $error");
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                ),
+                child: const Text('Update'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
