@@ -31,3 +31,8 @@ const UpdateAnimalPage({
         TextEditingController(text: species);
     final TextEditingController notesController =
         TextEditingController(text: notes);
+
+return Scaffold(
+      appBar: AppBar(
+        title: const Text('Update Animal'),
+      ),
