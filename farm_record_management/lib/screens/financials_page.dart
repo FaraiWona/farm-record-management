@@ -3,3 +3,5 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'crop.dart';
 class FinancialsPage extends StatelessWidget {
   const FinancialsPage({super.key});
+  @override
+  Widget build(BuildContext context) {
