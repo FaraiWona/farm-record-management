@@ -81,4 +81,23 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       ),
     );
   }
+  TextFormField _buildTextFormField(
+      TextEditingController controller, String label, bool isNumeric,
+      {int maxLines = 1}) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
+      maxLines: maxLines,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the $label';
+        }
+        return null;
+      },
+    );
+  }
 
