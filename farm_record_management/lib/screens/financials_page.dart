@@ -13,4 +13,7 @@ class FinancialsPage extends StatelessWidget {
           ),
         centerTitle: true,
         backgroundColor: Colors.green,
-        actions: [ 
+        actions: [
+              IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
