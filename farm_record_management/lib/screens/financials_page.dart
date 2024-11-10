@@ -10,3 +10,7 @@ class FinancialsPage extends StatelessWidget {
         title: const Text(
           'Farm Financials',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          ),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        actions: [ 
