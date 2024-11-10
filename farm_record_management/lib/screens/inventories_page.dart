@@ -36,4 +36,22 @@ class InventoryPage extends StatelessWidget {
     );
   }
 }
+class InventoryDetailsForm extends StatefulWidget {
+  const InventoryDetailsForm({super.key});
+
+  @override
+  _InventoryDetailsFormState createState() => _InventoryDetailsFormState();
+}
+
+class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _itemController = TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _purchaseDateController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
+
+  final CollectionReference _inventoryCollection =
+      FirebaseFirestore.instance.collection('inventories');
+
+
 
