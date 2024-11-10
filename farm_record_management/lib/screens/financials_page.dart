@@ -5,3 +5,8 @@ class FinancialsPage extends StatelessWidget {
   const FinancialsPage({super.key});
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Farm Financials',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
