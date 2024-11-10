@@ -17,3 +17,11 @@ class FinancialsPage extends StatelessWidget {
               IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
+                Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CropListPage()),
+              );
+            },
+          ),
+        ],
+      ),
