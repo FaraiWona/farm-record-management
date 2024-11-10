@@ -53,5 +53,32 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
   final CollectionReference _inventoryCollection =
       FirebaseFirestore.instance.collection('inventories');
 
-
+ @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          _buildTextFormField(_itemController, 'Item', false),
+          const SizedBox(height: 16),
+          _buildTextFormField(_quantityController, 'Quantity', true),
+          const SizedBox(height: 16),
+          _buildTextFormField(
+              _purchaseDateController, 'Purchase Date (YYYY-MM-DD)', false),
+          const SizedBox(height: 16),
+          _buildTextFormField(_notesController, 'Notes', false, maxLines: 3),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _submitForm,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
+            child: const Text('Submit'),
+          ),
+        ],
+      ),
+    );
+  }
 
