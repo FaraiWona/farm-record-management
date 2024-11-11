@@ -125,4 +125,13 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       });
     }
   }
+@override
+  void dispose() {
+    _itemController.dispose();
+    _quantityController.dispose();
+    _purchaseDateController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+}
 
