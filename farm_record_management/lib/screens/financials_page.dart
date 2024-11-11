@@ -128,3 +128,13 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
       });
     }
   }
+  @override
+  void dispose() {
+    _transactionTypeController.dispose();
+    _amountController.dispose();
+    _dateController.dispose();
+    _descriptionController.dispose();
+    _notesController.dispose();
+    super.dispose();
+  }
+}
