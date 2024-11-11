@@ -102,3 +102,29 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
       },
     );
   }
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final financialDetails = {
+        'transactionType': _transactionTypeController.text,
+        'amount': _amountController.text,
+        'date': _dateController.text,
+        'description': _descriptionController.text,
+        'notes': _notesController.text,
+      };
+
+      _financialsCollection.add(financialDetails).then((value) {
+        _formKey.currentState!.reset();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Transaction added successfully!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const CropListPage()),
+        );
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add transaction: $error')),
+        );
+      });
+    }
+  }
