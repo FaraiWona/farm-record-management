@@ -32,3 +32,22 @@ class FinancialsPage extends StatelessWidget {
     );
   }
 }
+
+class FinancialDetailsForm extends StatefulWidget {
+  const FinancialDetailsForm({super.key});
+
+  @override
+  _FinancialDetailsFormState createState() => _FinancialDetailsFormState();
+}
+
+class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _transactionTypeController =
+      TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
+
+  final CollectionReference _financialsCollection =
+      FirebaseFirestore.instance.collection('financials');
