@@ -100,4 +100,29 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       },
     );
   }
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final inventoryDetails = {
+        'item': _itemController.text,
+        'quantity': _quantityController.text,
+        'purchaseDate': _purchaseDateController.text,
+        'notes': _notesController.text,
+      };
+
+      _inventoryCollection.add(inventoryDetails).then((value) {
+        _formKey.currentState!.reset();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Inventory item added successfully!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const CropListPage()),
+        );
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add inventory item: $error')),
+        );
+      });
+    }
+  }
 
