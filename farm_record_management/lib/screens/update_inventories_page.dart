@@ -17,3 +17,15 @@ class UpdateInventoryPage extends StatelessWidget {
     required this.notes,
   });
 
+ @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final TextEditingController itemController =
+        TextEditingController(text: item);
+    final TextEditingController quantityController =
+        TextEditingController(text: quantity);
+    final TextEditingController purchaseDateController =
+        TextEditingController(text: purchaseDate);
+    final TextEditingController notesController =
+        TextEditingController(text: notes);
+
