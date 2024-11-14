@@ -18,6 +18,7 @@ class UpdateFinancialsPage extends StatefulWidget {
     required this.description,
     required this.notes,
   });
+
   @override
   _UpdateFinancialsPageState createState() => _UpdateFinancialsPageState();
 }
