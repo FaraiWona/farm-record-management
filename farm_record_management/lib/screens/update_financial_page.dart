@@ -18,7 +18,7 @@ class UpdateFinancialsPage extends StatefulWidget {
     required this.description,
     required this.notes,
   });
- @override
+  @override
   _UpdateFinancialsPageState createState() => _UpdateFinancialsPageState();
 }
 
@@ -67,3 +67,63 @@ class _UpdateFinancialsPageState extends State<UpdateFinancialsPage> {
       });
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Update Financial Details'),
+        backgroundColor: Colors.green,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              _buildTextFormField(
+                  _transactionTypeController, 'Transaction Type'),
+              const SizedBox(height: 16),
+              _buildTextFormField(_amountController, 'Amount', isNumeric: true),
+              const SizedBox(height: 16),
+              _buildTextFormField(_dateController, 'Date (YYYY-MM-DD)'),
+              const SizedBox(height: 16),
+              _buildTextFormField(_descriptionController, 'Description'),
+              const SizedBox(height: 16),
+              _buildTextFormField(_notesController, 'Notes', maxLines: 3),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _updateFinancialDetails,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green, // Background color
+                  foregroundColor: Colors.white, // Text color
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12), // Button padding
+                ),
+                child: const Text('Update'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  TextFormField _buildTextFormField(
+      TextEditingController controller, String label,
+      {bool isNumeric = false, int maxLines = 1}) {
+    return TextFormField(
+      controller: controller,
+      decoration:
+          InputDecoration(labelText: label, border: const OutlineInputBorder()),
+      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
+      maxLines: maxLines,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter $label';
+        }
+        return null;
+      },
+    );
+  }
+}
