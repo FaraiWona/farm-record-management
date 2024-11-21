@@ -35,7 +35,7 @@ class AnimalHomePage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'Manage your animals efficiently.',
+                  'Animals details.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
