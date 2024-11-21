@@ -187,7 +187,7 @@ class CropListPage extends StatelessWidget {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
+                              backgroundColor: Colors.green),
                           child: const Text('Delete'),
                         ),
                         ElevatedButton(
@@ -208,7 +208,7 @@ class CropListPage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.green),
                           child: const Text('Update'),
                         ),
                       ],
@@ -284,7 +284,7 @@ class CropListPage extends StatelessWidget {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
+                              backgroundColor: Colors.green),
                           child: const Text('Delete'),
                         ),
                         ElevatedButton(
@@ -303,7 +303,7 @@ class CropListPage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.green),
                           child: const Text('Update'),
                         ),
                       ],
@@ -381,7 +381,7 @@ class CropListPage extends StatelessWidget {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
+                              backgroundColor: Colors.green),
                           child: const Text('Delete'),
                         ),
                         ElevatedButton(
@@ -401,7 +401,7 @@ class CropListPage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.green),
                           child: const Text('Update'),
                         ),
                       ],
@@ -479,7 +479,7 @@ class CropListPage extends StatelessWidget {
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red),
+                              backgroundColor: Colors.green),
                           child: const Text('Delete'),
                         ),
                         ElevatedButton(
@@ -499,7 +499,7 @@ class CropListPage extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue),
+                              backgroundColor: Colors.green),
                           child: const Text('Update'),
                         ),
                       ],
