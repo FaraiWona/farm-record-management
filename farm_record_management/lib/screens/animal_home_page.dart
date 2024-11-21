@@ -9,7 +9,7 @@ class AnimalHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Farm Management App',
+          'Farm Management',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -24,7 +24,7 @@ class AnimalHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Welcome to the Animal Management App!',
+                'Animals management section',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.greenAccent,
