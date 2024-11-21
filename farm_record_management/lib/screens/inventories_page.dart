@@ -10,20 +10,18 @@ class InventoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Inventory Management App',
+          'Inventory Management section',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        const CropListPage()), // Navigate back to CropListPage
+                MaterialPageRoute(builder: (context) => const CropListPage()),
               );
             },
           ),
@@ -36,6 +34,7 @@ class InventoryPage extends StatelessWidget {
     );
   }
 }
+
 class InventoryDetailsForm extends StatefulWidget {
   const InventoryDetailsForm({super.key});
 
@@ -53,7 +52,7 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
   final CollectionReference _inventoryCollection =
       FirebaseFirestore.instance.collection('inventories');
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -71,7 +70,7 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
           ElevatedButton(
             onPressed: _submitForm,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.green,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 12),
             ),
@@ -81,6 +80,7 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       ),
     );
   }
+
   TextFormField _buildTextFormField(
       TextEditingController controller, String label, bool isNumeric,
       {int maxLines = 1}) {
@@ -100,6 +100,7 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       },
     );
   }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final inventoryDetails = {
@@ -125,7 +126,8 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
       });
     }
   }
-@override
+
+  @override
   void dispose() {
     _itemController.dispose();
     _quantityController.dispose();
@@ -134,4 +136,3 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
     super.dispose();
   }
 }
-
