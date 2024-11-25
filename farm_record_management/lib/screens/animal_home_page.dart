@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'crop.dart';
 
 class AnimalHomePage extends StatelessWidget {
   const AnimalHomePage({super.key});
@@ -161,15 +162,22 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
                 };
 
                 _animalsCollection.add(animalDetails).then((value) {
-                  print("Animal Added");
-
                   _formKey.currentState!.reset();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Animal added successfully!')),
                   );
+
+                  // Redirect to CropPage after successful submission
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CropListPage()),
+                  );
                 }).catchError((error) {
-                  print("Failed to add animal: $error");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Failed to add animal: $error')),
+                  );
                 });
               }
             },
