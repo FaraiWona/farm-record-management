@@ -51,9 +51,7 @@ class AnimalHomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // will add later
-        },
+        onPressed: () {},
         backgroundColor: Colors.green,
         child: const Icon(Icons.add),
       ),
@@ -168,7 +166,6 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
                     const SnackBar(content: Text('Animal added successfully!')),
                   );
 
-                  // Redirect to CropPage after successful submission
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
