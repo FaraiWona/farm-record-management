@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'crop.dart';
@@ -108,6 +109,7 @@ class _InventoryDetailsFormState extends State<InventoryDetailsForm> {
         'quantity': _quantityController.text,
         'purchaseDate': _purchaseDateController.text,
         'notes': _notesController.text,
+        "userId": FirebaseAuth.instance.currentUser!.uid
       };
 
       _inventoryCollection.add(inventoryDetails).then((value) {

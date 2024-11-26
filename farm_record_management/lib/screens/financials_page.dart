@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'crop.dart';
+
 class FinancialsPage extends StatelessWidget {
   const FinancialsPage({super.key});
   @override
@@ -10,14 +12,14 @@ class FinancialsPage extends StatelessWidget {
         title: const Text(
           'Farm Financials',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.green,
         actions: [
-              IconButton(
+          IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-                Navigator.pushReplacement(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const CropListPage()),
               );
@@ -25,7 +27,7 @@ class FinancialsPage extends StatelessWidget {
           ),
         ],
       ),
-       body: const Padding(
+      body: const Padding(
         padding: EdgeInsets.all(16.0),
         child: SingleChildScrollView(child: FinancialDetailsForm()),
       ),
@@ -52,7 +54,7 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
   final CollectionReference _financialsCollection =
       FirebaseFirestore.instance.collection('financials');
 
-      @override
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
@@ -76,7 +78,7 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 12),
             ),
-             child: const Text('Submit'),
+            child: const Text('Submit'),
           ),
         ],
       ),
@@ -102,6 +104,7 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
       },
     );
   }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       final financialDetails = {
@@ -110,6 +113,7 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
         'date': _dateController.text,
         'description': _descriptionController.text,
         'notes': _notesController.text,
+        "userId": FirebaseAuth.instance.currentUser!.uid
       };
 
       _financialsCollection.add(financialDetails).then((value) {
@@ -128,6 +132,7 @@ class _FinancialDetailsFormState extends State<FinancialDetailsForm> {
       });
     }
   }
+
   @override
   void dispose() {
     _transactionTypeController.dispose();

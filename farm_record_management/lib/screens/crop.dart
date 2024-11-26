@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'update_crop_page.dart';
@@ -126,7 +127,10 @@ class CropListPage extends StatelessWidget {
 
   Widget _buildFinancialsSection() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('financials').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('financials')
+          .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -225,7 +229,10 @@ class CropListPage extends StatelessWidget {
 
   Widget _buildInventorySection() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('inventories').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('inventories')
+          .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -320,7 +327,10 @@ class CropListPage extends StatelessWidget {
 
   Widget _buildCropsSection() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('crops').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('crops')
+          .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -418,7 +428,10 @@ class CropListPage extends StatelessWidget {
 
   Widget _buildAnimalsSection() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('animals').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('animals')
+          .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());

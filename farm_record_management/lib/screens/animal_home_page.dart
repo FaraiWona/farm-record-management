@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'crop.dart';
@@ -10,50 +11,26 @@ class AnimalHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Farm Management',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+          'Farm Animals',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
+        centerTitle: true,
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const CropListPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Animals management section',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.greenAccent,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Animals details.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
-              SizedBox(height: 40),
-              AnimalDetailsForm(),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add),
+        child: SingleChildScrollView(child: AnimalDetailsForm()),
       ),
     );
   }
@@ -71,8 +48,8 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
   final TextEditingController _birthDateController = TextEditingController();
   final TextEditingController _breedController = TextEditingController();
   final TextEditingController _healthStatusController = TextEditingController();
-  final TextEditingController _notesController = TextEditingController();
   final TextEditingController _speciesController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
 
   final CollectionReference _animalsCollection =
       FirebaseFirestore.instance.collection('animals');
@@ -83,109 +60,77 @@ class _AnimalDetailsFormState extends State<AnimalDetailsForm> {
       key: _formKey,
       child: Column(
         children: [
-          TextFormField(
-            controller: _birthDateController,
-            decoration: const InputDecoration(
-              labelText: 'Birth Date (YYYY-MM-DD)',
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the birth date';
-              }
-              return null;
-            },
-          ),
+          _buildTextFormField(
+              _birthDateController, 'Birth Date (YYYY-MM-DD)', false),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _breedController,
-            decoration: const InputDecoration(
-              labelText: 'Breed',
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the breed';
-              }
-              return null;
-            },
-          ),
+          _buildTextFormField(_breedController, 'Breed', false),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _healthStatusController,
-            decoration: const InputDecoration(
-              labelText: 'Health Status',
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the health status';
-              }
-              return null;
-            },
-          ),
+          _buildTextFormField(_healthStatusController, 'Health Status', false),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _speciesController,
-            decoration: const InputDecoration(
-              labelText: 'Species',
-              border: OutlineInputBorder(),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the species';
-              }
-              return null;
-            },
-          ),
+          _buildTextFormField(_speciesController, 'Species', false),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _notesController,
-            decoration: const InputDecoration(
-              labelText: 'Notes',
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 3,
-          ),
+          _buildTextFormField(_notesController, 'Notes', false, maxLines: 3),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                final animalDetails = {
-                  'birthDate': _birthDateController.text,
-                  'breed': _breedController.text,
-                  'healthStatus': _healthStatusController.text,
-                  'species': _speciesController.text,
-                  'notes': _notesController.text,
-                };
-
-                _animalsCollection.add(animalDetails).then((value) {
-                  _formKey.currentState!.reset();
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Animal added successfully!')),
-                  );
-
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CropListPage()),
-                  );
-                }).catchError((error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Failed to add animal: $error')),
-                  );
-                });
-              }
-            },
+            onPressed: _submitForm,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 12),
             ),
             child: const Text('Submit'),
           ),
         ],
       ),
     );
+  }
+
+  TextFormField _buildTextFormField(
+      TextEditingController controller, String label, bool isNumeric,
+      {int maxLines = 1}) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
+      ),
+      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
+      maxLines: maxLines,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter the $label';
+        }
+        return null;
+      },
+    );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      final animalDetails = {
+        'birthDate': _birthDateController.text,
+        'breed': _breedController.text,
+        'healthStatus': _healthStatusController.text,
+        'species': _speciesController.text,
+        'notes': _notesController.text,
+        'userId': FirebaseAuth.instance.currentUser!.uid,
+      };
+
+      _animalsCollection.add(animalDetails).then((value) {
+        _formKey.currentState!.reset();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Animal added successfully!')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const CropListPage()),
+        );
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add animal: $error')),
+        );
+      });
+    }
   }
 
   @override

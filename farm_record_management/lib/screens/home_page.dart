@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'crop.dart';
@@ -113,6 +114,7 @@ class _CropDetailsFormState extends State<CropDetailsForm> {
         'harvestDate': _harvestDateController.text,
         'quantity': _quantityController.text,
         'notes': _notesController.text,
+        "userId": FirebaseAuth.instance.currentUser!.uid
       };
 
       _cropsCollection.add(cropDetails).then((value) {
