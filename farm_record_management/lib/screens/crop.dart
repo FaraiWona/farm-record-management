@@ -1,3 +1,4 @@
+import 'package:farm_record_management/screens/authenticate/log_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +14,24 @@ import 'update_financial_page.dart';
 class CropListPage extends StatelessWidget {
   const CropListPage({super.key});
 
+  // Sign-out method
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signed out successfully!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error during sign-out: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +46,8 @@ class CropListPage extends StatelessWidget {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
+            icon: const Icon(Icons.logout),
+            onPressed: () => signOut(context),
           ),
         ],
       ),
@@ -81,7 +95,6 @@ class CropListPage extends StatelessWidget {
     );
   }
 
-  // Helper method to build the drawer tiles
   Widget _buildDrawerListTile(BuildContext context, String title, Widget page) {
     return ListTile(
       title: Text(title),
@@ -95,7 +108,6 @@ class CropListPage extends StatelessWidget {
     );
   }
 
-  // Method to add shadow behind the sections
   Widget _buildSectionWithShadow(Widget child, String sectionTitle) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
